@@ -1,12 +1,17 @@
 {
-  "name": "electron-quick-start",
+  "name": "rbcontroller-electron",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "RBController in electron.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "postinstall": "install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "pack-win": "electron-builder --dir --win",
+    "dist-win": "electron-builder --win"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/RoboticsBrno/rbcontroller-electron",
   "keywords": [
     "Electron",
     "quick",
@@ -14,9 +19,43 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Vojtech Bocek <vbocek@gmail.com>",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^5.0.6"
+    "electron": "^5.0.6",
+    "electron-builder": "^21.0.15",
+    "electron-builder-squirrel-windows": "^21.0.15"
+  },
+  "dependencies": {
+    "ws": "^7.1.0"
+  },
+  "build": {
+    "appId": "com.roboticsbrno.rbcontroller",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "portable"
+    }
   }
 }
