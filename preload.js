@@ -8,7 +8,6 @@ var gServer = null;
 var gDiscoverInterval = null;
 var gDevices = {};
 var gOwner = "";
-var gRbServer = null;
 
 function print(text)  {
     var log = document.getElementById("log");
@@ -16,7 +15,7 @@ function print(text)  {
 }
 
 function addDevice(msg, rinfo) {
-    if(msg["owner"] !== gOwner)
+    if(msg["owner"] !== gOwner && gOwner !== "SuperRobotik")
         return;
     if(rinfo.address in gDevices)
         return;
@@ -139,10 +138,6 @@ RBServer.prototype.onWsMessage = function(msg) {
     this.send(JSON.parse(msg))
 }
 
-function initWebSocketServer() {
-
-}
-
 window.addEventListener('DOMContentLoaded', () => {
     var owner = document.getElementById("owner");
     if(owner) {
@@ -160,6 +155,6 @@ window.addEventListener('DOMContentLoaded', () => {
         restartServer();
         print("Looking for robots...");
     } else {
-        gRbServer = new RBServer(window.location.hostname);
+        new RBServer(window.location.hostname);
     }
 })

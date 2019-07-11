@@ -12,12 +12,40 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
     }
   })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+
+  const wpContentFilter = { urls: [ "*.min.js" ] };
+  mainWindow.webContents.session.webRequest.onBeforeRequest(wpContentFilter, (details, callback) => {
+    var res = {
+      cancel: false,
+    };
+
+    const { url } = details;
+    const overrides = [ "nipplejs.min.js", "reconnecting-websocket.min.js" ];
+    for(var i = 0; i < overrides.length; ++i) {
+      var suffix = overrides[i];
+      if(url.indexOf("cloudflare") !== -1 && url.endsWith(suffix)) {
+        var redir = "file://";
+        if(!__dirname.endsWith(".asar")) {
+          redir += __dirname + "/bundled/" + suffix;
+        } else {
+          redir += process.resourcesPath + "/bundled/" + suffix;
+        }
+        res.redirectURL = redir;
+        break;
+      }
+    }
+
+    callback(res);
+  });
+
+  mainWindow.maximize();
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
