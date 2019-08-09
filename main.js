@@ -21,7 +21,7 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  const wpContentFilter = { urls: [ "*.min.js" ] };
+  const wpContentFilter = { urls: [ "*://*/*.min.js" ] };
   mainWindow.webContents.session.webRequest.onBeforeRequest(wpContentFilter, (details, callback) => {
     var res = {
       cancel: false,
