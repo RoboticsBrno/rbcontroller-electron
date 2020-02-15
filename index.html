@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>RBController</title>
+  </head>
   <body>
     Your name: <input type="text" id="owner" value="FrantaFlinta">
     <div id="devices" style="margin: 24px">

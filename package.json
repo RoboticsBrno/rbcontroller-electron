@@ -4,7 +4,7 @@
   "description": "RBController in electron.",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron --no-sandbox .",
     "postinstall": "install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
@@ -22,12 +22,13 @@
   "author": "Vojtech Bocek <vbocek@gmail.com>",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.1",
-    "electron-builder": "^21.2.0",
-    "electron-builder-squirrel-windows": "^21.2.0"
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2",
+    "electron-builder-squirrel-windows": "^22.3.3",
+    "app-builder-lib": "^22.3.3"
   },
   "dependencies": {
-    "ws": "^7.1.1"
+    "ws": "^7.2.1"
   },
   "build": {
     "extraResources": "bundled",
