@@ -117,11 +117,12 @@ RBServer.prototype.onSocketMessage = function(msg) {
     msg = msg.toString().replace(/\n/g, "\\n");
     //console.log(msg)
     msg = JSON.parse(msg);
-    if("n" in msg) {
-        var diff = self.readCounter - msg["n"]
-        if(diff > 0 && diff < 300)
+    if ("n" in msg) {
+        var n = msg["n"]
+        var diff = self.readCounter - n
+        if(n !== -1 && diff > 0 && diff < 25)
             return;
-        this.readCounter = msg["n"]
+        this.readCounter = n
     }
 
     msg = JSON.stringify(msg);
