@@ -28,7 +28,7 @@
     "electron-builder-squirrel-windows": "^22.6.0"
   },
   "dependencies": {
-    "ws": "^7.2.1"
+    "ws": "^7.4.6"
   },
   "build": {
     "extraResources": "bundled",
