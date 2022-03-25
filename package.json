@@ -23,7 +23,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "app-builder-lib": "^22.6.0",
-    "electron": "^8.5.2",
+    "electron": "^13.6.6",
     "electron-builder": "^22.6.0",
     "electron-builder-squirrel-windows": "^22.6.0"
   },
