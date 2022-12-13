@@ -2,12 +2,12 @@
 // It has the same sandbox as a Chrome extension.
 const BROADCAST_PORT = 42424
 const WEB_PORT = 9000
-const DISCOVER_SLEEP = 0.2
 
 var gServer = null;
 var gDiscoverInterval = null;
 var gDevices = {};
 var gOwner = "";
+var gSelectedAddress = null
 
 function print(text)  {
     var log = document.getElementById("log");
@@ -40,6 +40,7 @@ function addDevice(msg, rinfo) {
             port = msg["port"];
         if("path" in msg)
             path = msg["path"];
+        sessionStorage.setItem("rb-address", rinfo.address)
         window.location = "http://" + rinfo.address + ":" + port + path;
     });
     devices.appendChild(btn);
@@ -156,6 +157,16 @@ window.addEventListener('DOMContentLoaded', () => {
         restartServer();
         print("Looking for robots...");
     } else {
-        new RBServer(window.location.hostname);
+        var ip = window.location.hostname
+        if(window.location.origin === "null" && window.location.search.indexOf("original=") !== -1) {
+            const params = new URLSearchParams(window.location.search.substring(1))
+            try {
+                const origUrl = new URL(params.get("original"))
+                ip = origUrl.hostname
+            } catch(e) {
+                console.log(e)
+            }
+        }
+        new RBServer(ip);
     }
 })
